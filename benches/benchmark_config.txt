@@ -1,0 +1,11 @@
+master_seed=42
+# PRNG: StdRng (ChaCha12), rand 0.8.8; seeded with all 32 bytes of SHA-256.
+# Hash input: master_seed as u64 big-endian, then the domain and its fields.
+# Each field is encoded as a u64 big-endian length followed by its bytes.
+# Slot fields: N,b,layout. Participant fields: b,k,layout. Weight fields: N,L,layout.
+# These numeric fields are u64 big-endian before the length prefix.
+# Main layout: 0. Sensitivity layouts: 1,2,3,4,5.
+# Attribute and request domains have no further fields. Longer attribute vectors share the same prefix.
+# Other fixture fields: scheme, N,b,k,n,h,L as UTF-8 CLI fields, then the fixture label.
+# Timed fields: scheme, N,b,k,n,h,L, measurement names and roles in output order, then phase
+# ("warmup" or "samples"). Layout changes preserve protocol and request streams.

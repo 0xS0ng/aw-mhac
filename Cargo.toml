@@ -1,0 +1,21 @@
+[package]
+name = "aw-mhac"
+version = "0.1.0"
+edition = "2021"
+publish = false
+autobenches = false
+
+[features]
+op-count = []
+
+[dependencies]
+blstrs = "=0.7.1"
+blst = { version = "=0.3.17", features = ["no-threads"] }
+ff = "=0.13.1"
+group = "=0.13.0"
+rand = "=0.8.8"
+sha2 = "=0.10.9"
+
+[[bin]]
+name = "measure"
+path = "benches/measure.rs"
