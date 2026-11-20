@@ -7,7 +7,7 @@ This repository implements the protocols and experiments for **AW-MHAC: Accounta
 | Scheme | Implementation |
 | --- | --- |
 | AW-MHAC | Weighted multi-holder anonymous credentials, selective disclosure, tracing, and public audit verification. |
-| FLL25 | Protocols 1 and 3 without private attributes. The second instance, FLL25 (opt.), adds the published Appendix H storage optimization using BLS issuer certificates in G1. |
+| FLL25 | Protocols 1 and 3 without private attributes. The second instance, FLL25 (opt.), adds its storage optimization, using BLS issuer certificates in G1. |
 | FHLL26 | The BBS-BLS construction with one secure element; all stages, including the secure-element algorithm, run in software. |
 | hinTS | Key generation, hints, public-key preprocessing, partial signing, aggregation, and verification, with the source-group assignment of its public implementation. |
 
@@ -48,7 +48,7 @@ The runner builds the release worker, saves CSVs and resumable checkpoints, and 
 
 Operations run single-threaded after at least **1 second and 10 warmup calls**. Results report the median, P25, and P75 of **100 samples**, or **1000 samples for unit costs**. Operations whose warmup median exceeds one second use 20 samples. Warmup and measured calls use independent random streams; CSVs retain warmup metadata and the median of each consecutive block of up to 100 measured calls.
 
-The master seed is **42**, with stream encodings specified in `benches/benchmark_config.txt`. Defaults are N=32 slots, b=16 registered holders, k=8 participants, n=10 attributes, three disclosed attributes, unit weights, T=k, and layout 0. Registration and participant selections are shared across matching configurations and schemes. The first selected participant is the host. Audit presentations use the last k holders in the slot-sorted registration record. Matching default sweep points reuse their `time_cost_table.csv` source rows, identified in the CSV notes.
+The master seed is **42**, with stream encodings specified in `benches/benchmark_config.txt`. Defaults are N=32 slots, b=16 registered holders, k=8 participants, n=10 attributes, three disclosed attributes, unit weights, T=k, and layout 0. Registration and participant selections are shared across matching configurations and schemes. The first selected participant is the host. Audit presentations use the holders of the k largest registered slots. Matching default sweep points reuse their `time_cost_table.csv` source rows, identified in the CSV notes.
 
 AW-MHAC HKeyGen includes its holder cache; hinTS HKeyGen includes key generation and hint generation. FLL25 Accept caches the attribute product and its storage includes that cache. The AW-MHAC and hinTS time-table Show rows measure aggregation after receiving the partial signatures, excluding the host's own partial signing. Computation comparisons include that signature in the host's time, average the non-host holders' times, and sum all participants' times within each sample before taking the median. Comparison instances rotate within each repetition.
 
@@ -99,3 +99,7 @@ The recorded measurements used a MacBook Pro with an Apple M2 Pro, **10 CPU core
 | `figures/` | The 12 paper PDF panels. |
 | `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml` | Package configuration, locked dependencies, and pinned compiler. |
 | `runs/` | New measurement outputs; ignored by Git. |
+
+## License
+
+This project is licensed under the Apache License 2.0. See `LICENSE`.
