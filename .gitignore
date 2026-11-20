@@ -1,0 +1,10 @@
+/target/
+/runs/
+/data/smoke/
+/data/*.log
+/data/.cases/
+/data/.run.lock
+/figures/smoke/
+__pycache__/
+*.pyc
+.DS_Store
